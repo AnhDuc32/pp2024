@@ -77,7 +77,9 @@ class Student(Init):
                     sum += student[i]._mark[j] * course[j]._credit
                     sum_credit += course[j]._credit
                 student[i]._gpa = sum / sum_credit
-                print(f'{i+1}. {student[i]} - GPA: {round(student[i]._gpa, 2)}')   
+            sort_gpa = sorted(student, key = lambda x: x._gpa, reverse = True)
+            for stu in sort_gpa:
+                print(f'{stu} - GPA: {round(stu._gpa, 2)}')
 
 class Course(Init):
     def __init__(self, id, name, credit):
