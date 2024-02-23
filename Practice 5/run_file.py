@@ -1,6 +1,35 @@
 import os
+import zipfile
+import pandas as pd
 import input_file as i
 import output_file as o
+
+def compress_file():
+    file_name = ['students.txt', 'courses.txt', 'marks.txt']
+    compress_file_name = zipfile.ZipFile('students.dat', 'w')
+    for f in file_name:
+        compress_file_name.write(f, compress_type=zipfile.ZIP_DEFLATED)
+    compress_file_name.close()
+
+def decompress_file(student, course, student_num, course_num):
+    file_name = 'students.dat'
+    if os.path.exists(file_name):
+        print('"Students.dat" is already exists!\nLoading data successfully!')
+        with zipfile.ZipFile(file_name, 'r') as zip_file:
+            zip_file.extractall()
+            with open('students.txt', 'r') as stu_data:
+                for line in stu_data:
+                    line = line.strip()
+                    student.append(line)
+                    student_num += 1
+            with open('courses.txt', 'r') as course_data:
+                for line in course_data:
+                    line = line.strip()
+                    course.append(line)
+                    course_num += 1
+    else:
+        print('"Students.dat" is not exists!')
+    return student, course, student_num, course_num
 
 def clear():
     print("")
@@ -12,6 +41,8 @@ def main():
     course = []
     student_num = 0
     course_num = 0
+    
+    student, course, student_num, course_num = decompress_file(student, course, student_num, course_num)
     
     while (True):
         print("""
@@ -30,9 +61,10 @@ def main():
 
         option = int(input("Choose an option: "))
         if option == 0:
+            compress_file()
             os.system("cls")
             print("""
-You have exited the program
+You have exited the program. All the files have been compressed into "students.dat".
 GOODBYE!""")
             exit(0)
         elif option == 1:
