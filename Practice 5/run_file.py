@@ -1,6 +1,6 @@
 import os
 import zipfile
-import pandas as pd
+import numpy as np
 import input_file as i
 import output_file as o
 
@@ -18,15 +18,35 @@ def decompress_file(student, course, student_num, course_num):
         with zipfile.ZipFile(file_name, 'r') as zip_file:
             zip_file.extractall()
             with open('students.txt', 'r') as stu_data:
-                for line in stu_data:
-                    line = line.strip()
-                    student.append(line)
+                line = stu_data.readlines()
+                for l in line:
+                    id, name, dob = l.split(' - ')
+                    id = id.replace('ID: ', '')
+                    name = name.replace('Name: ', '')
+                    dob = dob.replace('DoB: ', '')
+                    stu = i.Student(id, name, dob)
+                    student.append(stu)
                     student_num += 1
             with open('courses.txt', 'r') as course_data:
-                for line in course_data:
-                    line = line.strip()
-                    course.append(line)
+                line = course_data.readlines()
+                for l in line:
+                    id, name, credit = l.split(' - ')
+                    id = id.replace('ID: ', '')
+                    name = name.replace('Name: ', '')
+                    credit = credit.replace('Credit: ', '')
+                    cour = i.Course(id, name, credit)
+                    course.append(cour)
                     course_num += 1
+            with open('marks.txt', 'r') as mark_data:
+                line = mark_data.readlines()
+                for l in line:
+                    if not l.startswith('Course'):
+                        id, name, dob, mark = l.split(' - ')
+                        id = id.replace('ID: ', '')
+                        mark = mark.replace('Mark: ', '')
+                        for s in range (student_num):
+                            if id == student[s]._id:
+                                student[s]._mark = np.append(student[s]._mark, float(mark))
     else:
         print('"Students.dat" is not exists!')
     return student, course, student_num, course_num
@@ -100,6 +120,7 @@ GOODBYE!""")
         elif option == 8:
             os.system("cls")
             o.course_list(course, course_num)
+            o.student_list(student, student_num)
             o.show_student_mark(course, course_num, student, student_num)
             clear()
         elif option == 9:

@@ -8,4 +8,4 @@ class Student(Init):
         self._mark = numpy.array([])
         self._gpa = None
     def __str__(self):
-        return f'{super().__str__()} - DoB: {self._dob}'
+        return f'{super().__str__()} - DoB: {self._dob}'.rstrip()

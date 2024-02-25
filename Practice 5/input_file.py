@@ -25,7 +25,7 @@ def student_information(student_num):
         print("")
         student = Student(id, name, dob) 
         student_info.append(student)
-        f.write(f'{str(student)}\n')
+        f.write(f'{(student)}\n')
     f.close()
     return student_info
 def student_mark(course_num, student, student_num):
@@ -33,12 +33,14 @@ def student_mark(course_num, student, student_num):
         return None
     else:
         f = open('marks.txt', 'w')
-        for i in range (course_num):
-            f.write(f'Course {i+1}:\n')
-            print(f'\nCourse {i+1}:')
+        for i in range (student_num):
+            student[i]._mark = numpy.array([])
+        for c in range (course_num):
+            f.write(f'Course {c+1}:\n')
+            print(f'\nCourse {c+1}:')
             for j in range (student_num):
                 student[j]._mark = numpy.append(student[j]._mark, float(input(f'Enter mark for student {j+1}: ')))
-                f.write(f'{str(student[j])} - Mark: {str(student[j]._mark[i])}\n')
+                f.write(f'{(student[j])} - Mark: {(student[j]._mark[c])}\n')
         f.close()
 
 def course_number():
@@ -63,6 +65,6 @@ def course_information(course_num):
         print("")
         course = Course(id, name, credit) 
         course_info.append(course)
-        f.write(f'{str(course)}\n')
+        f.write(f'{(course)}\n')
     f.close()
     return course_info

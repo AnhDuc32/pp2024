@@ -5,4 +5,4 @@ class Course(Init):
         super().__init__(id, name)
         self._credit = credit
     def __str__(self):
-        return f'{super().__str__()} - Credit: {self._credit}'
+        return f'{super().__str__()} - Credit: {self._credit}'.rstrip()

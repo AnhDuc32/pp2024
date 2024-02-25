@@ -26,8 +26,8 @@ def cal_gpa(student, student_num, course, course_num):
             sum = 0
             sum_credit = 0
             for j in range (course_num):
-                sum += student[i]._mark[j] * course[j]._credit
-                sum_credit += course[j]._credit
+                sum += float(student[i]._mark[j]) * float(course[j]._credit)
+                sum_credit += float(course[j]._credit)
             student[i]._gpa = sum / sum_credit
         sort_gpa = sorted(student, key = lambda x: x._gpa, reverse = True)
         for stu in sort_gpa:
