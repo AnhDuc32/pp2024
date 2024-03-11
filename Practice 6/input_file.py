@@ -33,6 +33,7 @@ def student_mark(course_num, student, student_num):
     if course_num == 0 or student_num == 0:
         return None
     else:
+        mark = []
         f = open('marks.txt', 'wb')
         for i in range (student_num):
             student[i]._mark = numpy.array([])
@@ -40,7 +41,10 @@ def student_mark(course_num, student, student_num):
             print(f'\nCourse {c+1}:')
             for j in range (student_num):
                 student[j]._mark = numpy.append(student[j]._mark, float(input(f'Enter mark for student {j+1}: ')))
-                pickle.dump(student[j]._mark, f)
+        for c in range (course_num):
+            for s in range (student_num):
+                mark.append(student[s]._mark[c])
+        pickle.dump(mark, f)
         f.close()
 
 def course_number():
