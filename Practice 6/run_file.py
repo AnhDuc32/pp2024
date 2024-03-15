@@ -30,7 +30,6 @@ def decompress_file(student, course, student_num, course_num):
                     course.append(cour[j])
             with open('marks.txt', 'rb') as mark_data:
                 mark = pickle.load(mark_data)
-                print(mark)
                 for s in range (student_num):
                     data = mark[s::course_num]
                     for c in range (course_num):
