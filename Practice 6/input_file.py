@@ -35,8 +35,6 @@ def student_mark(course_num, student, student_num):
     else:
         mark = []
         f = open('marks.txt', 'wb')
-        for i in range (student_num):
-            student[i]._mark = numpy.array([])
         for c in range (course_num):
             print(f'\nCourse {c+1}:')
             for j in range (student_num):
